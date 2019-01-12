@@ -50,6 +50,7 @@
                     app:emptinessIsValid="false"
                     app:emptyErrorText="@string/password_field_is_empty"
                     app:minLength="6"
+                    app:inputType="password"
                     app:invalidInputLengthText="@string/password_too_short_error_text">
             </com.example.joaogolias.pocunittests.components.customEditText.CustomEditText>
 

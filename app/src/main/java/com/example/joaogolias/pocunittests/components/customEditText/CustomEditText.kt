@@ -1,8 +1,8 @@
 package com.example.joaogolias.pocunittests.components.customEditText
 
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
@@ -10,6 +10,9 @@ import com.example.joaogolias.pocunittests.R
 import kotlinx.android.synthetic.main.custom_edit_text.view.*
 
 class CustomEditText(context: Context?, val attrs: AttributeSet?) : LinearLayout(context, attrs) {
+
+    private var IS_PASSWORD: Int = 1
+
     private var mEmptinessIsValid: Boolean = false
     private var mEmptyErrorText: String? = ""
     private var mMinLength: Int = 0
@@ -17,7 +20,7 @@ class CustomEditText(context: Context?, val attrs: AttributeSet?) : LinearLayout
     private var mRequiredCharacterSet: String? = ""
     private var mMissingCharacterErrorText: String? = ""
     private var mHint: String? = ""
-    private var isValid: Boolean = true
+    private var mInputType: Int = 0
 
 
     init {
@@ -53,6 +56,7 @@ class CustomEditText(context: Context?, val attrs: AttributeSet?) : LinearLayout
             mRequiredCharacterSet = obtainStyledAttributes.getString(R.styleable.CustomEditText_requiredCharacterSet)
             mMissingCharacterErrorText = obtainStyledAttributes.getString(R.styleable.CustomEditText_missingCharacterErrorText)
             mHint = obtainStyledAttributes.getString(R.styleable.CustomEditText_hint)
+            mInputType = obtainStyledAttributes.getInt(R.styleable.CustomEditText_inputType, 0)
 
         }
     }
@@ -60,6 +64,10 @@ class CustomEditText(context: Context?, val attrs: AttributeSet?) : LinearLayout
     private fun initializeEditText() {
         showEditTextHint(true)
         showErrorTv(false, "")
+
+        when(mInputType) {
+            IS_PASSWORD -> customEditTextEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        }
     }
 
     fun showEditTextHint(show: Boolean) {
@@ -67,28 +75,29 @@ class CustomEditText(context: Context?, val attrs: AttributeSet?) : LinearLayout
     }
 
     fun validate() {
+        var alreadyValidated: Boolean = false
         if(!mEmptinessIsValid) {
             if(customEditTextEditText.text.isEmpty()) {
-                isValid = false
+                alreadyValidated = true
                 showErrorTv(true, mEmptyErrorText ?: "Invalid")
             }
         }
 
-        if(isValid && mMinLength > 0) {
+        if(!alreadyValidated && mMinLength > 0) {
             if(customEditTextEditText.text.length < mMinLength) {
-                isValid = false
+                alreadyValidated = true
                 showErrorTv(true, mInvalidInputLengthText ?: "Invalid length")
             }
         }
 
-        if(isValid && mRequiredCharacterSet?.isEmpty() == false) {
+        if(!alreadyValidated && mRequiredCharacterSet?.isEmpty() == false) {
             if(!customEditTextEditText.text.contains(mRequiredCharacterSet!!)){
-                isValid = false
+                alreadyValidated = true
                 showErrorTv(true, mMissingCharacterErrorText ?: "Invalid")
             }
         }
 
-        if(isValid) {
+        if(!alreadyValidated) {
             showErrorTv(false, "")
         }
     }
