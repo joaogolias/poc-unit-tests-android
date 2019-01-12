@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Poc Unit Tests</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <string name="email_hint">Email</string>
+    <string name="invalid_email_error_text">E-mail inválido</string>
+    <string name="email_field_is_empty">E-mail deve ser preenchido</string>
+    <string name="password_hint">Senha</string>
+    <string name="password_too_short_error_text">Senha deve conter, pelo menos, 6 caracteres</string>
+    <string name="password_field_is_empty">Senha deve ser preenchida</string>
+</resources>

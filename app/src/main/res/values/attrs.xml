@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomEditText">
+        <attr name="emptinessIsValid" format="boolean"/>
+        <attr name="emptyErrorText" format="string"/>
+        <attr name="minLength" format="integer"/>
+        <attr name="invalidInputLengthText" format="string"/>
+        <attr name="requiredCharacterSet" format="string"/>
+        <attr name="missingCharacterErrorText" format="string"/>
+        <attr name="hint" format="string"/>
+    </declare-styleable>
+</resources>
