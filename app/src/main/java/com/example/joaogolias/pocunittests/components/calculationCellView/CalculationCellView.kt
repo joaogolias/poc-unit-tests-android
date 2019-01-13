@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.calculation_cell_view.view.*
 
 class CalculationCellView(context: Context, private val attrs: AttributeSet) :
     LinearLayout(context, attrs),
-    SquareInputView.EditorActionListener,
     CalculationCellViewContract.View {
 
         private val mPresenter by lazy {
@@ -19,11 +18,19 @@ class CalculationCellView(context: Context, private val attrs: AttributeSet) :
         }
 
         override fun getFirstNumber(): Int {
-            return firstNumberSiv.getText().toInt()
+            var returnableNumber = 0
+            if (!firstNumberSiv.getText().isEmpty()) {
+                returnableNumber = firstNumberSiv.getText().toInt()
+            }
+            return returnableNumber
         }
 
         override fun getSecondNumber(): Int {
-            return secondNumberSiv.getText().toInt()
+            var returnableNumber = 0
+            if (!secondNumberSiv.getText().isEmpty()) {
+                returnableNumber = secondNumberSiv.getText().toInt()
+            }
+            return returnableNumber
         }
 
         override fun displaySecondNumber(show: Boolean) {
@@ -36,6 +43,10 @@ class CalculationCellView(context: Context, private val attrs: AttributeSet) :
 
         override fun setOperationSign(operationSign: String) {
             operationTv.text = operationSign
+        }
+
+        override fun setFirstNumberSivActionDone() {
+            firstNumberSiv.setImeOption(0)
         }
 
 
@@ -51,25 +62,25 @@ class CalculationCellView(context: Context, private val attrs: AttributeSet) :
                     val obtainStyledAttributes = context.obtainStyledAttributes(it, R.styleable.CalculationCellView, 0, 0)
                     val operationSign = obtainStyledAttributes.getInt(R.styleable.CalculationCellView_operation, -1)
                     mPresenter.setOperationType(operationSign)
-                    //            mPresenter.setValidationConfig(
-        //                obtainStyledAttributes.getBoolean(R.styleable.CustomEditText_emptinessIsValid, false),
-        //                obtainStyledAttributes.getString(R.styleable.CustomEditText_emptyErrorText) ?: "",
-        //                obtainStyledAttributes.getInt(R.styleable.CustomEditText_minLength, 0),
-        //                obtainStyledAttributes.getString(R.styleable.CustomEditText_invalidInputLengthText) ?: "",
-        //                obtainStyledAttributes.getString(R.styleable.CustomEditText_requiredCharacterSet) ?: "",
-        //                obtainStyledAttributes.getString(R.styleable.CustomEditText_missingCharacterErrorText) ?: "")
-        //
-        //            mInputType = obtainStyledAttributes.getInt(R.styleable.CustomEditText_inputType, -1)
-        //            mHint = obtainStyledAttributes.getString(R.styleable.CustomEditText_hint)
-
                 }
             }
 
-            override fun onImeActionNextKey() {
-                secondNumberSiv.editTextRequestFocus()
-            }
-
             private fun setListeners() {
-                firstNumberSiv.setEditorActionListener(this)
+                firstNumberSiv.setEditorActionListener({
+                    secondNumberSiv.editTextRequestFocus()
+                }, {
+                    mPresenter.calculate(getFirstNumber(), getSecondNumber())
+                })
+
+                secondNumberSiv.setEditorActionListener(null,{
+                        mPresenter.calculate(getFirstNumber(), getSecondNumber())
+                })
+
+
+                secondNumberSiv.setOnEditTextFocusChangeHandler {hasFocus ->
+                    if(!hasFocus) {
+                        mPresenter.calculate(getFirstNumber(), getSecondNumber())
+                    }
+                }
             }
 }

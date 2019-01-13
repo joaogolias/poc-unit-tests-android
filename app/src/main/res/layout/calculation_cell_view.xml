@@ -44,6 +44,6 @@
             android:textSize="@dimen/square_input_view_text_size"
             android:gravity="center"
             android:background="@drawable/rounded_view_background"
-            android:text="2"/>
+            />
 
 </LinearLayout>

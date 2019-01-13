@@ -7,6 +7,7 @@ interface CalculationCellViewContract {
         fun displaySecondNumber(show: Boolean)
         fun setResult(result: Int)
         fun setOperationSign(operationSign: String)
+        fun setFirstNumberSivActionDone()
     }
 
     interface Presenter {

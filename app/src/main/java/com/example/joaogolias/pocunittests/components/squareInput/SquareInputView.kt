@@ -9,22 +9,20 @@ import kotlinx.android.synthetic.main.square_input_view.view.*
 import com.example.joaogolias.pocunittests.R
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-
+import com.example.joaogolias.pocunittests.activities.hideKeyboard
 
 
 class SquareInputView(context: Context, private val attrs: AttributeSet) : RelativeLayout(context, attrs) {
     private var mNextLeftView: Int = -1
     private var mImeOptions: Int = -1
+    private var onImeActionNextKey: (() -> (Any))? = null
+    private var onImeActionDoneKey: (() -> (Any))? = null
+    private var onEditTextFocusChangeHandler: ((hasFocus: Boolean) -> (Any))? = null
 
     enum class ImeOptions(val value: Int) {
         DONE(0),
         NEXT(1)
     }
-
-    interface EditorActionListener {
-        fun onImeActionNextKey()
-    }
-    private var mEditorActionListener: EditorActionListener? = null
 
     init {
         LayoutInflater.from(context).inflate(R.layout.square_input_view, this, true)
@@ -40,22 +38,15 @@ class SquareInputView(context: Context, private val attrs: AttributeSet) : Relat
         }
     }
 
-    fun setEditorActionListener(editorActionListener: EditorActionListener) {
-        mEditorActionListener = editorActionListener
-    }
-
     private fun initializeEditText() {
         squareInputEt.nextFocusLeftId = mNextLeftView
 
-        squareInputEt.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                this.mEditorActionListener?.onImeActionNextKey()
-                return@OnEditorActionListener true
-            }
-            false
-            })
 
-        when(mImeOptions) {
+        setImeOption(mImeOptions)
+    }
+
+    fun setImeOption(option: Int) {
+        when(option) {
             0 -> squareInputEt.imeOptions = EditorInfo.IME_ACTION_DONE
             1 -> squareInputEt.imeOptions = EditorInfo.IME_ACTION_NEXT
             else -> squareInputEt.imeOptions = EditorInfo.IME_ACTION_DONE
@@ -69,5 +60,30 @@ class SquareInputView(context: Context, private val attrs: AttributeSet) : Relat
     fun editTextRequestFocus() {
         this.requestFocus()
         squareInputEt.requestFocus()
+    }
+
+    fun setOnEditTextFocusChangeHandler(handler: (hasFocus: Boolean) -> (Any)) {
+        this.onEditTextFocusChangeHandler = handler
+        squareInputEt.setOnFocusChangeListener{ _, hasFocus ->
+            this.onEditTextFocusChangeHandler?.invoke(hasFocus)
+        }
+    }
+
+    fun setEditorActionListener(onImeActionNextKey: (() -> (Any))?, onImeActionDoneKey: (() -> (Any))?) {
+        this.onImeActionNextKey = onImeActionNextKey
+        this.onImeActionDoneKey = onImeActionDoneKey
+
+        squareInputEt.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT && this.onImeActionNextKey != null) {
+                this.onImeActionNextKey?.invoke()
+                return@OnEditorActionListener true
+            }
+            if (actionId == EditorInfo.IME_ACTION_DONE && this.onImeActionDoneKey != null) {
+                this.onImeActionDoneKey?.invoke()
+                hideKeyboard()
+                return@OnEditorActionListener true
+            }
+            false
+        })
     }
 }
