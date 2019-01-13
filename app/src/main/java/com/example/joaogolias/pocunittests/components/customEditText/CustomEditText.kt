@@ -9,39 +9,42 @@ import android.widget.LinearLayout
 import com.example.joaogolias.pocunittests.R
 import kotlinx.android.synthetic.main.custom_edit_text.view.*
 
-class CustomEditText(context: Context?, val attrs: AttributeSet?) : LinearLayout(context, attrs) {
+class CustomEditText(context: Context?, private val attrs: AttributeSet?) : LinearLayout(context, attrs), CustomEditTextContract.View {
 
     private var IS_PASSWORD: Int = 1
-
-    private var mEmptinessIsValid: Boolean = false
-    private var mEmptyErrorText: String? = ""
-    private var mMinLength: Int = 0
-    private var mInvalidInputLengthText: String? = ""
-    private var mRequiredCharacterSet: String? = ""
-    private var mMissingCharacterErrorText: String? = ""
     private var mHint: String? = ""
     private var mInputType: Int = 0
 
+    private val mPresenter by lazy {
+        CustomEditTextPresenter()
+    }
 
     init {
         LayoutInflater.from(context).inflate(R.layout.custom_edit_text, this, true)
+        mPresenter.onViewAttached(this)
         initializeAttributes()
         initializeEditText()
         setListeners()
     }
 
+    override fun displayFloatingHintTv(show: Boolean) {
+        floatingHintTv?.text = mHint
+        floatingHintTv?.visibility = if(show) View.VISIBLE else View.GONE
+    }
+
+    override fun displayEditTextHint(show: Boolean) {
+        input?.hint = if(show) mHint else ""
+    }
+
+    override fun displayErrorTv(show: Boolean, text: String) {
+        errorTv?.visibility = if(show) View.VISIBLE else View.GONE
+        errorTv?.text = text
+    }
+
 
     private fun setListeners() {
-        customEditTextEditText.setOnFocusChangeListener{ view, hasFocus ->
-            floatingHintTv.visibility = if(hasFocus) View.VISIBLE else View.GONE
-            floatingHintTv.text = mHint
-            showEditTextHint(!hasFocus)
-
-            if(hasFocus) {
-                showErrorTv(false, "")
-            } else {
-                validate()
-            }
+        input.setOnFocusChangeListener{ view, hasFocus ->
+            mPresenter.handleEditTextClick(hasFocus, input?.text.toString())
         }
     }
 
@@ -49,63 +52,35 @@ class CustomEditText(context: Context?, val attrs: AttributeSet?) : LinearLayout
         this.attrs?.let {
             val obtainStyledAttributes = context.obtainStyledAttributes(it, R.styleable.CustomEditText, 0, 0)
 
-            mEmptinessIsValid = obtainStyledAttributes.getBoolean(R.styleable.CustomEditText_emptinessIsValid, false)
-            mEmptyErrorText = obtainStyledAttributes.getString(R.styleable.CustomEditText_emptyErrorText)
-            mMinLength = obtainStyledAttributes.getInt(R.styleable.CustomEditText_minLength, 0)
-            mInvalidInputLengthText = obtainStyledAttributes.getString(R.styleable.CustomEditText_invalidInputLengthText)
-            mRequiredCharacterSet = obtainStyledAttributes.getString(R.styleable.CustomEditText_requiredCharacterSet)
-            mMissingCharacterErrorText = obtainStyledAttributes.getString(R.styleable.CustomEditText_missingCharacterErrorText)
+            mPresenter.setValidationConfig(
+                obtainStyledAttributes.getBoolean(R.styleable.CustomEditText_emptinessIsValid, false),
+                obtainStyledAttributes.getString(R.styleable.CustomEditText_emptyErrorText) ?: "",
+                obtainStyledAttributes.getInt(R.styleable.CustomEditText_minLength, 0),
+                obtainStyledAttributes.getString(R.styleable.CustomEditText_invalidInputLengthText) ?: "",
+                obtainStyledAttributes.getString(R.styleable.CustomEditText_requiredCharacterSet) ?: "",
+                obtainStyledAttributes.getString(R.styleable.CustomEditText_missingCharacterErrorText) ?: "")
+
+            mInputType = obtainStyledAttributes.getInt(R.styleable.CustomEditText_inputType, -1)
             mHint = obtainStyledAttributes.getString(R.styleable.CustomEditText_hint)
-            mInputType = obtainStyledAttributes.getInt(R.styleable.CustomEditText_inputType, 0)
 
         }
     }
 
     private fun initializeEditText() {
-        showEditTextHint(true)
-        showErrorTv(false, "")
+        displayEditTextHint(true)
+        displayErrorTv(false, "")
 
         when(mInputType) {
-            IS_PASSWORD -> customEditTextEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            IS_PASSWORD -> input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
         }
     }
 
-    fun showEditTextHint(show: Boolean) {
-        customEditTextEditText?.hint = if(show) mHint else ""
-    }
 
     fun validate() {
-        var alreadyValidated: Boolean = false
-        if(!mEmptinessIsValid) {
-            if(customEditTextEditText.text.isEmpty()) {
-                alreadyValidated = true
-                showErrorTv(true, mEmptyErrorText ?: "Invalid")
-            }
-        }
-
-        if(!alreadyValidated && mMinLength > 0) {
-            if(customEditTextEditText.text.length < mMinLength) {
-                alreadyValidated = true
-                showErrorTv(true, mInvalidInputLengthText ?: "Invalid length")
-            }
-        }
-
-        if(!alreadyValidated && mRequiredCharacterSet?.isEmpty() == false) {
-            if(!customEditTextEditText.text.contains(mRequiredCharacterSet!!)){
-                alreadyValidated = true
-                showErrorTv(true, mMissingCharacterErrorText ?: "Invalid")
-            }
-        }
-
-        if(!alreadyValidated) {
-            showErrorTv(false, "")
-        }
+        mPresenter.validate(input?.text.toString())
     }
 
-    private fun showErrorTv(show: Boolean, text: String) {
-        errorTv?.visibility = if(show) View.VISIBLE else View.GONE
-        errorTv?.text = text
-    }
+
 
 
 }

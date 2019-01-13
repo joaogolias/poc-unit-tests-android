@@ -1,8 +1,9 @@
 package com.example.joaogolias.pocunittests.activities.login
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.joaogolias.pocunittests.R
+import kotlinx.android.synthetic.main.activity_login.*
 
 /**
  * A login screen that offers login via email/password.
@@ -16,6 +17,14 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        setListeners()
+    }
+
+    private fun setListeners() {
+        signInButton.setOnClickListener{
+            email.validate()
+            password.validate()
+        }
     }
 
 }
