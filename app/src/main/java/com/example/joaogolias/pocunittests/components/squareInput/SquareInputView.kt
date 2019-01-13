@@ -37,18 +37,6 @@ class SquareInputView(context: Context, private val attrs: AttributeSet) : Relat
             val obtainStyledAttributes = context.obtainStyledAttributes(it, R.styleable.SquareInputView, 0, 0)
             mNextLeftView = obtainStyledAttributes.getResourceId(R.styleable.SquareInputView_nextLeftView, -1)
             mImeOptions = obtainStyledAttributes.getInt(R.styleable.SquareInputView_imeOptions, -1)
-
-//            mPresenter.setValidationConfig(
-//                obtainStyledAttributes.getBoolean(R.styleable.CustomEditText_emptinessIsValid, false),
-//                obtainStyledAttributes.getString(R.styleable.CustomEditText_emptyErrorText) ?: "",
-//                obtainStyledAttributes.getInt(R.styleable.CustomEditText_minLength, 0),
-//                obtainStyledAttributes.getString(R.styleable.CustomEditText_invalidInputLengthText) ?: "",
-//                obtainStyledAttributes.getString(R.styleable.CustomEditText_requiredCharacterSet) ?: "",
-//                obtainStyledAttributes.getString(R.styleable.CustomEditText_missingCharacterErrorText) ?: "")
-//
-//            mInputType = obtainStyledAttributes.getInt(R.styleable.CustomEditText_inputType, -1)
-//            mHint = obtainStyledAttributes.getString(R.styleable.CustomEditText_hint)
-
         }
     }
 
@@ -72,6 +60,10 @@ class SquareInputView(context: Context, private val attrs: AttributeSet) : Relat
             1 -> squareInputEt.imeOptions = EditorInfo.IME_ACTION_NEXT
             else -> squareInputEt.imeOptions = EditorInfo.IME_ACTION_DONE
         }
+    }
+
+    fun getText(): String {
+        return if(squareInputEt != null) squareInputEt.text.toString() else ""
     }
 
     fun editTextRequestFocus() {

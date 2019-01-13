@@ -13,7 +13,8 @@
             android:id="@+id/sum_calculation_cell"
             android:layout_margin="@dimen/calculation_cell_margin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:operation="sum">
 
     </com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView>
 
@@ -21,7 +22,8 @@
             android:id="@+id/subtraction_calculation_cell"
             android:layout_margin="@dimen/calculation_cell_margin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:operation="subtraction">
 
     </com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView>
 
@@ -29,23 +31,18 @@
             android:id="@+id/multiplication_calculation_cell"
             android:layout_margin="@dimen/calculation_cell_margin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:operation="multiplication">
 
     </com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView>
 
-    <com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView
-            android:id="@+id/division_calculation_cell"
-            android:layout_margin="@dimen/calculation_cell_margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-    </com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView>
 
     <com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView
             android:id="@+id/factorial_calculation_cell"
             android:layout_margin="@dimen/calculation_cell_margin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:operation="factorial">
 
     </com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView>
 
