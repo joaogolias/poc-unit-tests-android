@@ -6,7 +6,7 @@ import com.nhaarman.mockitokotlin2.verify
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
-class CustomEditTexPresenterTest {
+class CustomEditTextPresenterTest {
 
     @Mock
     lateinit var view: CustomEditTextContract.View

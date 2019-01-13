@@ -12,4 +12,22 @@
             <enum name="password" value="1"></enum>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="SquareInputView">
+        <attr name="nextLeftView" format="reference"/>
+        <attr name="imeOptions" format="enum">
+            <enum name="done" value="0"/>
+            <enum name="next" value="1"/>
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="CalculationCellView">
+        <attr name="operation" format="enum">
+            <enum name="sum" value="0"/>
+            <enum name="subtraction" value="1"/>
+            <enum name="multiplication" value="2"/>
+            <enum name="division" value="3"/>
+            <enum name="factorial" value="4"/>
+        </attr>
+    </declare-styleable>
+
 </resources>

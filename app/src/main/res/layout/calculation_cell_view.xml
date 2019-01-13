@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <com.example.joaogolias.pocunittests.components.squareInput.SquareInputView
+            android:id="@+id/firstNumberSiv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:nextLeftView="@+id/secondNumberSiv"
+            app:imeOptions="next">
+
+    </com.example.joaogolias.pocunittests.components.squareInput.SquareInputView>
+
+    <TextView
+            android:id="@+id/operationTv"
+            android:layout_width="@dimen/square_input_view_main_width"
+            android:layout_height="@dimen/square_input_view_main_height"
+            android:textSize="@dimen/square_input_view_text_size"
+            android:gravity="center"
+            android:text="+"/>
+
+    <com.example.joaogolias.pocunittests.components.squareInput.SquareInputView
+            android:id="@+id/secondNumberSiv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:imeOptions="done">
+
+    </com.example.joaogolias.pocunittests.components.squareInput.SquareInputView>
+
+    <TextView
+            android:id="@+id/equalsSignTv"
+            android:layout_width="@dimen/square_input_view_main_width"
+            android:layout_height="@dimen/square_input_view_main_height"
+            android:textSize="@dimen/square_input_view_text_size"
+            android:gravity="center"
+            android:text="="/>
+
+    <TextView
+            android:id="@+id/resultTv"
+            android:layout_width="@dimen/square_input_view_main_width"
+            android:layout_height="@dimen/square_input_view_main_height"
+            android:textSize="@dimen/square_input_view_text_size"
+            android:gravity="center"
+            android:background="@drawable/rounded_view_background"
+            android:text="2"/>
+
+</LinearLayout>

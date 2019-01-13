@@ -40,31 +40,33 @@ class CustomEditTextPresenter : CustomEditTextContract.Presenter {
         }
     }
 
-    override  fun validate(text: String){
-        var alreadyValidated = false
+    override  fun validate(text: String): Boolean{
+        var valid = true
         if(!mEmptinessIsValid) {
             if(text.isEmpty()) {
-                alreadyValidated = true
+                valid = false
                 mView.displayErrorTv(true, mEmptyErrorText ?: "Invalid")
             }
         }
 
-        if(!alreadyValidated && mMinLength > 0) {
+        if(valid && mMinLength > 0) {
             if(text.length < mMinLength) {
-                alreadyValidated = true
+                valid = false
                 mView.displayErrorTv(true, mInvalidInputLengthText ?: "Invalid length")
             }
         }
 
-        if(!alreadyValidated && mRequiredCharacterSet?.isEmpty() == false) {
+        if(valid && mRequiredCharacterSet?.isEmpty() == false) {
             if(!text.contains(mRequiredCharacterSet!!)){
-                alreadyValidated = true
+                valid = false
                 mView.displayErrorTv(true, mMissingCharacterErrorText ?: "Invalid")
             }
         }
 
-        if(!alreadyValidated) {
+        if(valid) {
             mView.displayErrorTv(false, "")
         }
+
+        return valid
     }
 }

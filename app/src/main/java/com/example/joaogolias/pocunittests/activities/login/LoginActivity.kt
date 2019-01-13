@@ -1,7 +1,9 @@
 package com.example.joaogolias.pocunittests.activities.login
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.joaogolias.pocunittests.CalculatorActivity
 import com.example.joaogolias.pocunittests.R
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -22,8 +24,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setListeners() {
         signInButton.setOnClickListener{
-            email.validate()
-            password.validate()
+            val isValidEmail = email.validate()
+            val isValidPassword = password.validate()
+            if(isValidEmail && isValidPassword) {
+                startActivity(Intent(this, CalculatorActivity::class.java))
+            }
+
         }
     }
 

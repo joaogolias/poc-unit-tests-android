@@ -76,11 +76,7 @@ class CustomEditText(context: Context?, private val attrs: AttributeSet?) : Line
     }
 
 
-    fun validate() {
-        mPresenter.validate(input?.text.toString())
+    fun validate(): Boolean {
+        return mPresenter.validate(input?.text.toString())
     }
-
-
-
-
 }

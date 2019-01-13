@@ -6,4 +6,12 @@
     <!--Custom Edit Text-->
     <dimen name="error_text_size">15dp</dimen>
     <dimen name="show_hint_text_size">15dp</dimen>
+
+    <!--Square Input View-->
+    <dimen name="square_input_view_main_width">70dp</dimen>
+    <dimen name="square_input_view_main_height">70dp</dimen>
+    <dimen name="square_input_view_text_size">50dp</dimen>
+
+    <!--Calculation Activity-->
+    <dimen name="calculation_cell_margin">10dp</dimen>
 </resources>
