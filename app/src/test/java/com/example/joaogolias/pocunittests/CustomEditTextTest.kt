@@ -70,6 +70,35 @@ class CustomEditTexPresentertTest {
         verify(view).displayErrorTv(false, "")
     }
 
+    @Test
+    fun `validation of emptiness should show error tv with an specific text` () {
+        presenter.validate("")
+
+        verify(view).displayErrorTv(true, emptinessError)
+    }
+
+    @Test
+    fun `validation of minimum length should show error tv with an specific text` () {
+        presenter.validate("em")
+
+        verify(view).displayErrorTv(true, invalidInputLengthText)
+    }
+
+
+    @Test
+    fun `validation of required character should show error tv with an specific text` () {
+        presenter.validate("email.email.com")
+
+        verify(view).displayErrorTv(true, missingCharacterErrorText)
+    }
+
+    @Test
+    fun `validation of a correct string should hide error tv and set empty text` () {
+        presenter.validate("email@email.com")
+
+        verify(view).displayErrorTv(false, "")
+    }
+
 
 }
 
