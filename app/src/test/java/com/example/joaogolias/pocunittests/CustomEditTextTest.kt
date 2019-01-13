@@ -1,71 +1,75 @@
 package com.example.joaogolias.pocunittests.components.customEditText
 
-import android.app.Activity
-import android.content.Context
-import android.content.res.TypedArray
-import android.util.AttributeSet
-import androidx.test.core.app.ApplicationProvider
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import android.view.View
-import android.widget.TextView
-import com.example.joaogolias.pocunittests.R
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.whenever
-import junit.framework.Assert.assertEquals
-import org.junit.Assert
+import com.nhaarman.mockitokotlin2.verify
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
-import org.robolectric.Robolectric
 
-
-@RunWith(RobolectricTestRunner::class)
-class CustomEditTextTest {
+class CustomEditTexPresentertTest {
 
     @Mock
-    private lateinit var context: Context
+    lateinit var view: CustomEditTextContract.View
 
-    @Mock
-    private lateinit var attributes: AttributeSet
+    lateinit var presenter: CustomEditTextContract.Presenter
 
-    @Mock
-    private lateinit var typedArray: TypedArray
+    val emptinessIsValid = false
+    val emptinessError = "EmptinessError"
+    val minLength = 3
+    val invalidInputLengthText = "invalidInputLengthText"
+    val requiredCharacterSet = "@"
+    val missingCharacterErrorText = "missingCharacterErrorText"
 
-    @Test
-    fun addition_isCorrect() {
-        Assert.assertEquals(4, 2 + 2)
+    @Before
+    fun setUp() {
+        MockitoAnnotations.initMocks(this)
+        presenter = CustomEditTextPresenter()
+        presenter.onViewAttached(view)
+
+        presenter.setValidationConfig(
+            emptinessIsValid,
+            emptinessError,
+            minLength,
+            invalidInputLengthText,
+            requiredCharacterSet,
+            missingCharacterErrorText)
     }
 
-//    private lateinit var customEditText: CustomEditText
-//    private lateinit var errorTv: TextView
-//
-//    @Before
-//    fun setUp() {
-//        MockitoAnnotations.initMocks(this);
-////        val activityController = Robolectric.buildActivity(Activity::class.java)
-//        context = mock(Context::class.java)
-////        attributes = AttributeSet()
-////        doReturn(typedArray).when(context).obtainStyledAttributes(attributes, R.styleable.CustomEditText)
-//        doReturn(typedArray).`when`(context).obtainStyledAttributes(attributes, R.styleable.CustomEditText)
-//        doReturn(true).`when`(typedArray).getBoolean(R.styleable.CustomEditText_emptinessIsValid, false)
-////        `when`(context.obtainStyledAttributes(attributes, R.styleable.CustomEditText)).thenReturn(typedArray)
-////        whenever(typedArray.getBoolean(R.styleable.CustomEditText_emptinessIsValid, false)).thenReturn(true)
-////        customEditText = CustomEditText(context, attributes)
-////        errorTv = customEditText.findViewById(R.id.errorTv)
-//    }
-//
-//    @Test
-//    fun `displayErrorTv sets errorTv visibility as Visible, and sets its text`() {
-//        val customEditText = CustomEditText(context, attributes)
-//        val errorTv = customEditText.findViewById<TextView>(R.id.errorTv)
-//        customEditText.displayErrorTv(true, "Text")
-//        assert(errorTv.visibility == View.VISIBLE)
-//        assert(errorTv.text == "Text")
-//    }
+    @Test
+    fun `should hide floating hint tv, when editText has no focus`() {
+        presenter.handleEditTextClick(false, "")
+
+        verify(view).displayFloatingHintTv(false)
+    }
+
+    @Test
+    fun `should show floating hint tv, when editText has focus`() {
+        presenter.handleEditTextClick(true, "")
+
+        verify(view).displayFloatingHintTv(true)
+    }
+
+    @Test
+    fun `should show hint tv, when editText has no focus`() {
+        presenter.handleEditTextClick(false, "")
+
+        verify(view).displayFloatingHintTv(false)
+    }
+
+    @Test
+    fun `should hide hint tv, when editText has focus`() {
+        presenter.handleEditTextClick(true, "")
+
+        verify(view).displayFloatingHintTv(true)
+    }
+
+    @Test
+    fun `should hide error tv, when edit text has focus`() {
+        presenter.handleEditTextClick(true, "")
+
+        verify(view).displayErrorTv(false, "")
+    }
+
 
 }
 
