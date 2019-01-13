@@ -2,7 +2,6 @@ package com.example.joaogolias.pocunittests.components.squareInput
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import kotlinx.android.synthetic.main.square_input_view.view.*

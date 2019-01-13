@@ -36,19 +36,19 @@ class CalculationCellViewPresenter : CalculationCellViewContract.Presenter {
 
     }
 
-    private fun sum(firstNumber: Int, secondNumber: Int?): Int {
+    override fun sum(firstNumber: Int, secondNumber: Int?): Int {
         return firstNumber + (secondNumber ?: 0)
     }
 
-    private fun subtract(firstNumber: Int, secondNumber: Int?): Int {
+    override fun subtract(firstNumber: Int, secondNumber: Int?): Int {
         return firstNumber - (secondNumber ?: 0)
     }
 
-    private fun multiply(firstNumber: Int, secondNumber: Int?): Int {
+    override fun multiply(firstNumber: Int, secondNumber: Int?): Int {
         return firstNumber * (secondNumber ?: 0)
     }
 
-    private fun factorial(number: Int): Int {
+    override fun factorial(number: Int): Int {
         if (number == 0) return 1
         return number*factorial(number-1)
     }
