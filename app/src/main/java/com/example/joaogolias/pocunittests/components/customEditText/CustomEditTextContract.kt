@@ -10,7 +10,7 @@ interface CustomEditTextContract {
     interface Presenter {
         fun onViewAttached(view: View)
         fun validate(text: String)
-        fun handleEditTextClick(hasFocus: Boolean, validationText: String)
+        fun handleEditTextFocusChange(hasFocus: Boolean, validationText: String)
         fun setValidationConfig(
             emptinessIsValid: Boolean,
             emptyErrorText: String,

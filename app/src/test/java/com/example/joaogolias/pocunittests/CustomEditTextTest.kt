@@ -6,7 +6,7 @@ import com.nhaarman.mockitokotlin2.verify
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
-class CustomEditTexPresentertTest {
+class CustomEditTexPresenterTest {
 
     @Mock
     lateinit var view: CustomEditTextContract.View
@@ -35,40 +35,44 @@ class CustomEditTexPresentertTest {
             missingCharacterErrorText)
     }
 
+    // HANDLE EDIT TEXT CLICK
+
     @Test
     fun `should hide floating hint tv, when editText has no focus`() {
-        presenter.handleEditTextClick(false, "")
+        presenter.handleEditTextFocusChange(false, "")
 
         verify(view).displayFloatingHintTv(false)
     }
 
     @Test
     fun `should show floating hint tv, when editText has focus`() {
-        presenter.handleEditTextClick(true, "")
+        presenter.handleEditTextFocusChange(true, "")
 
         verify(view).displayFloatingHintTv(true)
     }
 
     @Test
     fun `should show hint tv, when editText has no focus`() {
-        presenter.handleEditTextClick(false, "")
+        presenter.handleEditTextFocusChange(false, "")
 
         verify(view).displayFloatingHintTv(false)
     }
 
     @Test
     fun `should hide hint tv, when editText has focus`() {
-        presenter.handleEditTextClick(true, "")
+        presenter.handleEditTextFocusChange(true, "")
 
         verify(view).displayFloatingHintTv(true)
     }
 
     @Test
     fun `should hide error tv, when edit text has focus`() {
-        presenter.handleEditTextClick(true, "")
+        presenter.handleEditTextFocusChange(true, "")
 
         verify(view).displayErrorTv(false, "")
     }
+
+    // VALIDATE
 
     @Test
     fun `validation of emptiness should show error tv with an specific text` () {

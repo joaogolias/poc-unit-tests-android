@@ -30,7 +30,7 @@ class CustomEditTextPresenter : CustomEditTextContract.Presenter {
     }
 
 
-    override fun handleEditTextClick(hasFocus: Boolean, validationText: String) {
+    override fun handleEditTextFocusChange(hasFocus: Boolean, validationText: String) {
         mView.displayFloatingHintTv(hasFocus)
         mView.displayEditTextHint(!hasFocus)
         if (hasFocus) {

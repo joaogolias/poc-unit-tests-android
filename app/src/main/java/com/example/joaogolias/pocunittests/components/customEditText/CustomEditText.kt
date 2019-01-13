@@ -44,7 +44,7 @@ class CustomEditText(context: Context?, private val attrs: AttributeSet?) : Line
 
     private fun setListeners() {
         input.setOnFocusChangeListener{ view, hasFocus ->
-            mPresenter.handleEditTextClick(hasFocus, input?.text.toString())
+            mPresenter.handleEditTextFocusChange(hasFocus, input?.text.toString())
         }
     }
 
