@@ -4,6 +4,7 @@ import org.junit.Before
 import org.junit.Test
 import com.nhaarman.mockitokotlin2.verify
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 class CustomEditTextPresenterTest {
@@ -55,7 +56,7 @@ class CustomEditTextPresenterTest {
     fun `should show hint tv, when editText has no focus`() {
         presenter.handleEditTextFocusChange(false, "")
 
-        verify(view).displayFloatingHintTv(false)
+        verify(view, Mockito.times(1)).displayFloatingHintTv(false)
     }
 
     @Test
@@ -81,6 +82,8 @@ class CustomEditTextPresenterTest {
         verify(view).displayErrorTv(true, emptinessError)
     }
 
+
+
     @Test
     fun `validation of minimum length should show error tv with an specific text` () {
         presenter.validate("em")
@@ -100,9 +103,11 @@ class CustomEditTextPresenterTest {
     fun `validation of a correct string should hide error tv and set empty text` () {
         presenter.validate("email@email.com")
 
-        verify(view).displayErrorTv(false, "")
+        verify(view, Mockito.times(1)).displayErrorTv(false, "")
     }
 
 
 }
+
+
 

@@ -2,6 +2,7 @@ package com.example.joaogolias.pocunittests
 
 import com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellViewContract
 import com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellViewPresenter
+import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -12,6 +13,7 @@ class CalculationViewPresenterTest {
     @Mock
     lateinit var view: CalculationCellViewContract.View
 
+    @Mock
     lateinit var presenter: CalculationCellViewContract.Presenter
 
     @Before
@@ -48,7 +50,7 @@ class CalculationViewPresenterTest {
     @Test
     fun `should return the right product`() {
         val result = presenter.multiply(3, 9)
-        Assert.assertEquals(27, result)
+        Assert.assertEquals(28, result)
     }
 
     @Test
