@@ -19,7 +19,12 @@
             <enum name="done" value="0"/>
             <enum name="next" value="1"/>
         </attr>
+        <attr name="inputTypeSI" format="enum">
+            <enum name="password" value="1"></enum>
+            <enum name="passwordNumber" value="2"></enum>
+        </attr>
     </declare-styleable>
+
     <declare-styleable name="CalculationCellView">
         <attr name="operation" format="enum">
             <enum name="sum" value="0"/>

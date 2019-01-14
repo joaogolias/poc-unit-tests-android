@@ -1,6 +1,7 @@
 package com.example.joaogolias.pocunittests.components.squareInput
 
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
@@ -9,6 +10,7 @@ import com.example.joaogolias.pocunittests.R
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.example.joaogolias.pocunittests.activities.hideKeyboard
+import kotlinx.android.synthetic.main.custom_edit_text.view.*
 
 
 class SquareInputView(context: Context, private val attrs: AttributeSet) : RelativeLayout(context, attrs) {
@@ -17,11 +19,8 @@ class SquareInputView(context: Context, private val attrs: AttributeSet) : Relat
     private var onImeActionNextKey: (() -> (Any))? = null
     private var onImeActionDoneKey: (() -> (Any))? = null
     private var onEditTextFocusChangeHandler: ((hasFocus: Boolean) -> (Any))? = null
+    private var mInputType: Int = -1
 
-    enum class ImeOptions(val value: Int) {
-        DONE(0),
-        NEXT(1)
-    }
 
     init {
         LayoutInflater.from(context).inflate(R.layout.square_input_view, this, true)
@@ -34,14 +33,14 @@ class SquareInputView(context: Context, private val attrs: AttributeSet) : Relat
             val obtainStyledAttributes = context.obtainStyledAttributes(it, R.styleable.SquareInputView, 0, 0)
             mNextLeftView = obtainStyledAttributes.getResourceId(R.styleable.SquareInputView_nextLeftView, -1)
             mImeOptions = obtainStyledAttributes.getInt(R.styleable.SquareInputView_imeOptions, -1)
+            mInputType = obtainStyledAttributes.getInt(R.styleable.SquareInputView_inputTypeSI, -1)
         }
     }
 
     private fun initializeEditText() {
         squareInputEt.nextFocusLeftId = mNextLeftView
-
-
         setImeOption(mImeOptions)
+        setInputType(mInputType)
     }
 
     fun setImeOption(option: Int) {
@@ -49,6 +48,14 @@ class SquareInputView(context: Context, private val attrs: AttributeSet) : Relat
             0 -> squareInputEt.imeOptions = EditorInfo.IME_ACTION_DONE
             1 -> squareInputEt.imeOptions = EditorInfo.IME_ACTION_NEXT
             else -> squareInputEt.imeOptions = EditorInfo.IME_ACTION_DONE
+        }
+    }
+
+    fun setInputType(type: Int) {
+        when(type) {
+            1 -> squareInputEt.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+            2 -> squareInputEt.setInputType(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD)
+            else -> squareInputEt.inputType = InputType.TYPE_CLASS_NUMBER
         }
     }
 

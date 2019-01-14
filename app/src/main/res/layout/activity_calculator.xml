@@ -7,7 +7,54 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        tools:context=".CalculatorActivity">
+        tools:context=".activities.CalculatorActivity">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/calculation_cell_margin">
+
+        <com.example.joaogolias.pocunittests.components.squareInput.SquareInputView
+                android:id="@+id/square1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="5dp"
+                app:nextLeftView="@+id/square2"
+                app:inputTypeSI="passwordNumber"
+                app:imeOptions="next">
+        </com.example.joaogolias.pocunittests.components.squareInput.SquareInputView>
+        <com.example.joaogolias.pocunittests.components.squareInput.SquareInputView
+                android:id="@+id/square2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                app:nextLeftView="@+id/square3"
+                app:inputTypeSI="passwordNumber"
+                app:imeOptions="next">
+        </com.example.joaogolias.pocunittests.components.squareInput.SquareInputView>
+        <com.example.joaogolias.pocunittests.components.squareInput.SquareInputView
+                android:id="@+id/square3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                app:nextLeftView="@+id/square4"
+                app:inputTypeSI="passwordNumber"
+                app:imeOptions="next">
+        </com.example.joaogolias.pocunittests.components.squareInput.SquareInputView>
+        <com.example.joaogolias.pocunittests.components.squareInput.SquareInputView
+                android:id="@+id/square4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                app:inputTypeSI="passwordNumber"
+                app:imeOptions="done">
+
+        </com.example.joaogolias.pocunittests.components.squareInput.SquareInputView>
+    </LinearLayout>
 
     <com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView
             android:id="@+id/sum_calculation_cell"

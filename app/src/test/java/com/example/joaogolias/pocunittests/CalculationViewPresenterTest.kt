@@ -1,11 +1,10 @@
 package com.example.joaogolias.pocunittests
 
+import android.util.Log
 import com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellViewContract
 import com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellViewPresenter
-import com.nhaarman.mockitokotlin2.verify
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import com.nhaarman.mockitokotlin2.*
+import org.junit.*
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
@@ -50,7 +49,7 @@ class CalculationViewPresenterTest {
     @Test
     fun `should return the right product`() {
         val result = presenter.multiply(3, 9)
-        Assert.assertEquals(28, result)
+        Assert.assertEquals(27, result)
     }
 
     @Test
@@ -70,4 +69,5 @@ class CalculationViewPresenterTest {
         val result = presenter.factorial(6)
         Assert.assertEquals(720, result)
     }
+
 }
