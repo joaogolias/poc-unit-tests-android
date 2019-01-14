@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,18 +8,18 @@
         android:layout_height="match_parent"
         android:gravity="center"
         tools:context=".activities.CalculatorActivity">
-
     <LinearLayout
+            android:id="@+id/passwordContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="@dimen/calculation_cell_margin">
+            android:gravity="center"
+            >
 
         <com.example.joaogolias.pocunittests.components.squareInput.SquareInputView
                 android:id="@+id/square1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
                 android:layout_marginRight="5dp"
                 app:nextLeftView="@+id/square2"
                 app:inputTypeSI="passwordNumber"
@@ -56,29 +56,37 @@
         </com.example.joaogolias.pocunittests.components.squareInput.SquareInputView>
     </LinearLayout>
 
+
     <com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView
             android:id="@+id/sum_calculation_cell"
-            android:layout_margin="@dimen/calculation_cell_margin"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/passwordContainer"
+            android:layout_marginBottom="@dimen/calculation_cell_margin"
+            android:layout_marginTop="@dimen/calculation_cell_margin"
             app:operation="sum">
 
     </com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView>
 
     <com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView
             android:id="@+id/subtraction_calculation_cell"
-            android:layout_margin="@dimen/calculation_cell_margin"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/sum_calculation_cell"
+            android:layout_marginBottom="@dimen/calculation_cell_margin"
+            android:layout_marginTop="@dimen/calculation_cell_margin"
             app:operation="subtraction">
 
     </com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView>
 
     <com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView
             android:id="@+id/multiplication_calculation_cell"
-            android:layout_margin="@dimen/calculation_cell_margin"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/subtraction_calculation_cell"
+            android:layout_marginBottom="@dimen/calculation_cell_margin"
+            android:layout_marginTop="@dimen/calculation_cell_margin"
             app:operation="multiplication">
 
     </com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView>
@@ -86,11 +94,14 @@
 
     <com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView
             android:id="@+id/factorial_calculation_cell"
-            android:layout_margin="@dimen/calculation_cell_margin"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/multiplication_calculation_cell"
+            android:layout_marginBottom="@dimen/calculation_cell_margin"
+            android:layout_marginTop="@dimen/calculation_cell_margin"
+            android:gravity="center"
             app:operation="factorial">
 
     </com.example.joaogolias.pocunittests.components.calculationCellView.CalculationCellView>
 
-</LinearLayout>
+</RelativeLayout>
